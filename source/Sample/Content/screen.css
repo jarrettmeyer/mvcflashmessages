@@ -1,0 +1,36 @@
+﻿body {
+    background-color: #008080;
+    color: #303030;
+    font-family: Arial, sans-serif;
+}
+
+h2 {
+    font-size: 1.4em;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+
+table {
+    width: 100%;
+}
+
+td, th {
+    border-collapse: collapse;
+    border-bottom: 1px solid #909090;
+    padding: 3px;
+}
+
+th {
+    font-weight: bold;
+}
+
+.container {
+    margin-top: 1em;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: #ffffff;
+    padding: 1em;
+}

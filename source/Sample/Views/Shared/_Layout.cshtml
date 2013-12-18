@@ -1,0 +1,18 @@
+﻿@using MvcFlashMessages
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sample - @ViewBag.Title</title>
+    <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/screen.css")"/>
+</head>
+<body>
+    <div class="container">
+        @Html.RenderFlash()
+        <div class="body-content">
+            @RenderBody()    
+        </div>
+    </div>
+</body>
+</html>
