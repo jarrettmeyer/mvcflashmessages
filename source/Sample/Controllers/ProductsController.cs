@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using Sample.Models;
 
 namespace Sample.Controllers
 {
@@ -17,5 +18,10 @@ namespace Sample.Controllers
             return View("Index", products);
         }
 
+        public ActionResult New()
+        {
+            var product = new Product();
+            return View("New", product);
+        }
     }
 }

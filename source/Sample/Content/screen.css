@@ -14,12 +14,14 @@ h2 {
 
 table {
     width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1em;
 }
 
 td, th {
-    border-collapse: collapse;
     border-bottom: 1px solid #909090;
     padding: 3px;
+    text-align: left;
 }
 
 th {
