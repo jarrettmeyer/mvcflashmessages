@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="ControllerExtensionTests.cs" />
     <Compile Include="FakeController.cs" />
+    <Compile Include="FlashMessageCollectionTests.cs" />
     <Compile Include="FlashMessageTests.cs" />
     <Compile Include="HtmlHelperExtensionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

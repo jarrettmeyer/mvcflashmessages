@@ -19,6 +19,15 @@ namespace MvcFlashMessages
             this.storage = storage;
         }
 
+        public int Count
+        {
+            get
+            {
+                EnsureFlashMessagesIsInitialized();
+                return flashMessages.Count;
+            }
+        }
+
         public void Add(FlashMessage flashMessage)
         {
             EnsureFlashMessagesIsInitialized();
@@ -28,8 +37,15 @@ namespace MvcFlashMessages
 
         public IEnumerator<FlashMessage> GetEnumerator()
         {
-            EnsureFlashMessagesIsInitialized();
-            return flashMessages.GetEnumerator();
+            try
+            {
+                EnsureFlashMessagesIsInitialized();
+                return flashMessages.GetEnumerator();
+            }
+            finally
+            {
+                storage.Remove(key);
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()

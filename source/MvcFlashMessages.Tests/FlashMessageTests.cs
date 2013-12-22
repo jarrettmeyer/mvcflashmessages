@@ -7,7 +7,7 @@ namespace MvcFlashMessages
     public class FlashMessageTests
     {
         private FlashMessage flashMessage;
-
+        
         [Test]
         [TestCase("success", Result = "success")]
         [TestCase("my-key", Result = "my-key")]
