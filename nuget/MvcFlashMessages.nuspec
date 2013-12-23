@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>MvcFlashMessages</id>
@@ -12,8 +12,12 @@
         <releaseNotes>0.1.0 - First release.</releaseNotes>
         <copyright>Copyright 2013</copyright>
         <tags>MVC CSS</tags>
+        <dependencies>
+            <dependency id="Microsoft.AspNet.Mvc" version="3.0.20105.1" />
+        </dependencies>
     </metadata>
     <files>
         <file src="..\source\Sample\Content\flash-messages.css" target="content\Content\flash-messages.css" />
+        <file src="..\source\MvcFlashMessages\bin\Release\MvcFlashMessages.dll" target="lib\MvcFlashMessages.dll" />
     </files>
 </package>

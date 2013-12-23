@@ -9,8 +9,13 @@ This project is built with the following tools.
 - Visual Studio 2013
 - MVC 3.0
 - NUnit 2.6
+- PSake
 
-To build the project, run the tests, or create a NuGet package, use [PSake](https://github.com/psake/psake).
+To build the project, run the tests, or create a NuGet package, use [PSake](https://github.com/psake/psake). The following tasks have been defined in the project
+
+- **Version** &mdash; Update version. Invoke with `Invoke-psake Version @{ "version" = "a.b.c" }`. This will update the version in both the `AssemblyInfo.cs` and the `MvcFlashMessages.nuspec` files.
+- **NUnit** &mdash; Compile a debug build and run the [NUnit](http://nunit.org) tests.
+- **Pack** &mdash; Create a new NuGet package.
 
 ## Usage
 

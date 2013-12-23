@@ -4,7 +4,7 @@ properties {
     $projectPath = Join-Path $sourcePath MvcFlashMessages
     $projectBinPath = Join-Path $projectPath bin
     $projectObjPath = Join-Path $projectPath obj
-    $projectFile = Join-Path $projectPath MvcFlashMessage.csproj
+    $projectFile = Join-Path $projectPath MvcFlashMessages.csproj
     $nunitFramework = "net-4.0"
     $assemblyInfoPath = Join-Path $projectPath Properties/AssemblyInfo.cs
     $nugetSpecPath = ".\nuget\MvcFlashMessages.nuspec"
@@ -15,8 +15,13 @@ task default -depends CompileDebug
 
 task Clean {
     # Delete all existing bin\ and obj\ directories.
-    Remove-Item -Recurse -Force $projectBinPath
-    Remove-Item -Recurse -Force $projectObjPath
+    try {
+        Remove-Item -Recurse -Force $projectBinPath
+        Remove-Item -Recurse -Force $projectObjPath
+    }
+    catch {
+        Write-Host Nothing to clean!
+    }
 }
 
 task CompileDebug -depends Clean, Version {        
@@ -25,6 +30,12 @@ task CompileDebug -depends Clean, Version {
 
 task CompileRelease -depends NUnit {
     msbuild.exe /p:Configuration=Release $projectFile
+}
+
+
+task CreatePackage -depends CompileRelease {
+    nuget.exe pack $nugetSpecPath
+    Move-Item .\*.nupkg .\nuget
 }
 
 task NUnit -depends CompileDebug {    
@@ -40,14 +51,25 @@ task Version {
         return
     }
     Write-Host Updating project to version $version ...
+    Update-AssemblyInfo $assemblyInfoPath $version
+    Update-NugetSpec $nugetSpecPath $version
+}
 
-    # First, we will update AssemblyInfo.cs.
-    $content = Get-Content $assemblyInfoPath
+function Update-AssemblyInfo($file, $version) {
+    $content = Get-Content $file
     $assemblyVersionPattern = 'AssemblyVersion\("\d+\.\d+\.\d+\.\d+"\)'    
     $updatedAssemblyVersion = 'AssemblyVersion("' + $version + '.0")'
     $assemblyFileVersionPattern = 'AssemblyFileVersion\("\d+\.\d+\.\d+\.\d+"\)'
     $updatedAssemblyFileVersion = 'AssemblyFileVersion("' + $version + '.0")'
     $content = $content -replace $assemblyVersionPattern, $updatedAssemblyVersion
     $content = $content -replace $assemblyFileVersionPattern, $updatedAssemblyFileVersion
-    Set-Content $assemblyInfoPath $content
+    Set-Content $file $content
+}
+
+function Update-NugetSpec($file, $version) {
+    $content = Get-Content $file
+    $versionPattern = '<version>\d+\.\d+\.\d+</version>'
+    $versionReplacement = '<version>' + $version + '</version>'
+    $content = $content -replace $versionPattern, $versionReplacement
+    Set-Content $file $content
 }

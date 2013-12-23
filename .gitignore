@@ -1,3 +1,4 @@
+*.nupkg
 *.suo
 *.user
 
