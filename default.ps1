@@ -41,6 +41,13 @@ task Version {
     }
     Write-Host Updating project to version $version ...
 
-    # First, we will update
+    # First, we will update AssemblyInfo.cs.
     $content = Get-Content $assemblyInfoPath
+    $assemblyVersionPattern = 'AssemblyVersion\("\d+\.\d+\.\d+\.\d+"\)'    
+    $updatedAssemblyVersion = 'AssemblyVersion("' + $version + '.0")'
+    $assemblyFileVersionPattern = 'AssemblyFileVersion\("\d+\.\d+\.\d+\.\d+"\)'
+    $updatedAssemblyFileVersion = 'AssemblyFileVersion("' + $version + '.0")'
+    $content -replace $assemblyVersionPattern, $updatedAssemblyVersion
+    $content -replace $assemblyFileVersionPattern, $updatedAssemblyFileVersion
+    Set-Content $assemblyInfoPath $content
 }
