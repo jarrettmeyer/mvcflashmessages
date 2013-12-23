@@ -15,11 +15,11 @@ To build the project, run the tests, or create a NuGet package, use [PSake](http
 
 - **Version** &mdash; Update version. Invoke with `Invoke-psake Version @{ "version" = "a.b.c" }`. This will update the version in both the `AssemblyInfo.cs` and the `MvcFlashMessages.nuspec` files.
 - **NUnit** &mdash; Compile a debug build and run the [NUnit](http://nunit.org) tests.
-- **Pack** &mdash; Create a new NuGet package.
+- **CreatePackage** &mdash; Create a new NuGet package. The `MvcFlashMessages.*.nupkg` will be placed in the `nuget` folder.
 
 ## Usage
 
-To use flash messages in your project, first add the NuGet package. From your controller, you can add a success message.
+To use flash messages in your project, first add the NuGet package. From your controller, you can add a flash message with the following key and value.
 
     public ActionResult MyAction()
 	{ 
@@ -36,7 +36,18 @@ This HTML helper method would add the following to your view.
 
     <div class="flash-messages">
       <div class="flash-message flash-message-info">
-        "Hey! The service was invoked. Isn't that awesome?"
+        Hey! The service was invoked. Isn't that awesome?
+      </div>
+    </div>
+
+The flash helper will loop through all of your flash messages and display each of them in their own `<div>` tag.
+
+    <div class="flash-messages">
+      <div class="flash-message flash-message-success">
+        This is my first message.
+      </div>
+      <div class="flash-message flash-message-info">
+        This is my second message.
       </div>
     </div>
 
