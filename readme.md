@@ -10,6 +10,8 @@ This project is built with the following tools.
 - MVC 3.0
 - NUnit 2.6
 
+To build the project, run the tests, or create a NuGet package, use [PSake](https://github.com/psake/psake).
+
 ## Usage
 
 To use flash messages in your project, first add the NuGet package. From your controller, you can add a success message.
