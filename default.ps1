@@ -47,7 +47,7 @@ task Version {
     $updatedAssemblyVersion = 'AssemblyVersion("' + $version + '.0")'
     $assemblyFileVersionPattern = 'AssemblyFileVersion\("\d+\.\d+\.\d+\.\d+"\)'
     $updatedAssemblyFileVersion = 'AssemblyFileVersion("' + $version + '.0")'
-    $content -replace $assemblyVersionPattern, $updatedAssemblyVersion
-    $content -replace $assemblyFileVersionPattern, $updatedAssemblyFileVersion
+    $content = $content -replace $assemblyVersionPattern, $updatedAssemblyVersion
+    $content = $content -replace $assemblyFileVersionPattern, $updatedAssemblyFileVersion
     Set-Content $assemblyInfoPath $content
 }
