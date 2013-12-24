@@ -1,5 +1,8 @@
-﻿namespace MvcFlashMessages
+﻿using System;
+
+namespace MvcFlashMessages
 {
+    [Serializable]
     public class FlashMessage
     {
         private readonly string key;

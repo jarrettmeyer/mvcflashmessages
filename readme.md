@@ -69,6 +69,9 @@ A few values can be set in your `web.config` file.
 | MvcFlashMessages/InnerCssClass | flash-message | Inner container CSS class. |
 | MvcFlashMessages/OuterCssClass | flash-messages | Outer container CSS class. |
 
-## Tests
+## Release Notes
 
-Notice any missing tests? Let me know or submit a pull request.
+- 0.2.1 - Bugfix release. The `FlashMessage` class needs to be marked as serializable to work with State Server or SQL-backed sessions.
+- 0.2.0 - Added extension method to get flash messages out of TempData. This makes testing scenarios a bit easier. Also, the temp data key is now exposed as the static property `FlashMessageCollection.Key`.
+- 0.1.1 - Updated NuGet metadata.
+- 0.1.0 - First release.

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Reflection;
 using NUnit.Framework;
 
 namespace MvcFlashMessages
@@ -7,7 +9,16 @@ namespace MvcFlashMessages
     public class FlashMessageTests
     {
         private FlashMessage flashMessage;
-        
+
+        [Test]
+        public void Class_must_be_marked_as_serializable()
+        {
+            var klass = typeof(FlashMessage);
+            var attributes = klass.GetCustomAttributes();
+            bool isSerializable = attributes.Any(a => a is SerializableAttribute);
+            Assert.IsTrue(isSerializable);
+        }
+
         [Test]
         [TestCase("success", Result = "success")]
         [TestCase("my-key", Result = "my-key")]
