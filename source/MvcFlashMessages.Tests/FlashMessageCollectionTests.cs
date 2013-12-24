@@ -47,5 +47,11 @@ namespace MvcFlashMessages
             var messages = collection.ToList();
             Assert.AreEqual(0, tempData.Keys.Count());
         }
+
+        [Test]
+        public void Key_is_a_public_property()
+        {
+            Assert.AreEqual("MvcFlashMessages.FlashMessageCollection", FlashMessageCollection.Key);
+        }
     }
 }

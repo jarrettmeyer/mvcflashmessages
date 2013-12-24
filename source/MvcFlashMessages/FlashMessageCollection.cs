@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MvcFlashMessages
 {
     public class FlashMessageCollection : IEnumerable<FlashMessage>
     {
-        private IList<FlashMessage> flashMessages; 
+        private readonly List<FlashMessage> flashMessages = new List<FlashMessage>();        
         private readonly TempDataDictionary storage;
         private static readonly string key = typeof(FlashMessageCollection).FullName;
 
@@ -26,6 +27,11 @@ namespace MvcFlashMessages
                 EnsureFlashMessagesIsInitialized();
                 return flashMessages.Count;
             }
+        }
+
+        public static string Key
+        {
+            get { return key; }
         }
 
         public void Add(FlashMessage flashMessage)
@@ -64,8 +70,13 @@ namespace MvcFlashMessages
 
         private void EnsureFlashMessagesIsInitialized()
         {
-            object objectFromStorage = storage[key];
-            flashMessages = (objectFromStorage != null) ? (IList<FlashMessage>)objectFromStorage : new List<FlashMessage>();
+            // If there are any flash messages already in the collection, do not do this
+            // step again, or you will risk populating the collection twice.
+            if (flashMessages.Any())
+                return;
+
+            IEnumerable<FlashMessage> objectFromStorage = storage.GetFlashMessages();
+            flashMessages.AddRange(objectFromStorage);
         }
 
         private void SaveFlashMessages()
