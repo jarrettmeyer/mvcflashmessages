@@ -53,5 +53,25 @@ namespace MvcFlashMessages
         {
             Assert.AreEqual("MvcFlashMessages.FlashMessageCollection", FlashMessageCollection.Key);
         }
+
+        [Test]
+        public void String_indexer_can_get_messages_with_given_key()
+        {
+            collection.Add(new FlashMessage("info", "Test info message."));
+            collection.Add(new FlashMessage("info", "Test info message 2."));
+            collection.Add(new FlashMessage("warning", "Test warning message."));
+
+            var messages = collection["info"];
+
+            Assert.AreEqual(2, messages.Count());
+        }
+
+        [Test]
+        public void String_indexer_can_return_an_empty_collection()
+        {
+            var messages = collection["test"];
+            Assert.IsNotNull(messages);
+            Assert.AreEqual(0, messages.Count());
+        }
     }
 }

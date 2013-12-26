@@ -68,6 +68,15 @@ namespace MvcFlashMessages
             }
         }
 
+        public IEnumerable<FlashMessage> this[string key]
+        {
+            get
+            {
+                EnsureFlashMessagesIsInitialized();
+                return flashMessages.Where(t => t.Key == key);                
+            }
+        }
+
         private void EnsureFlashMessagesIsInitialized()
         {
             // If there are any flash messages already in the collection, do not do this
