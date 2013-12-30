@@ -7,6 +7,11 @@ namespace MvcFlashMessages
 {
     public static class HtmlHelperExtensions
     {
+        /// <summary>
+        /// Renders the HTML containing the flash messages.
+        /// </summary>
+        /// <param name="htmlHelper"></param>
+        /// <returns>HTML string</returns>
         public static IHtmlString RenderFlash(this HtmlHelper htmlHelper)
         {
             Contract.Requires<ArgumentNullException>(htmlHelper != null);

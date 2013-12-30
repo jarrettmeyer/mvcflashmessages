@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Web.Mvc;
 
 namespace MvcFlashMessages
@@ -8,15 +9,11 @@ namespace MvcFlashMessages
     {
         public static IEnumerable<FlashMessage> GetFlashMessages(this TempDataDictionary tempData)
         {
-            if (tempData == null)
-                throw new ArgumentNullException("tempData");
+            Contract.Requires<ArgumentNullException>(tempData != null);
+            Contract.Ensures(Contract.Result<IEnumerable<FlashMessage>>() != null);
 
             object obj = tempData[FlashMessageCollection.Key];
-            if (obj != null)
-            {
-                return (IList<FlashMessage>)obj;
-            }
-            IEnumerable<FlashMessage> flashMessages = (obj != null) ? (IEnumerable<FlashMessage>)obj : new List<FlashMessage>();
+            IEnumerable<FlashMessage> flashMessages = (obj as IEnumerable<FlashMessage>) ?? new List<FlashMessage>();
             return flashMessages;
         }
     }

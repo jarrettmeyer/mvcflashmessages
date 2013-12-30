@@ -15,6 +15,7 @@ namespace MvcFlashMessages
         {
             get
             {
+                Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()), "Return value cannot be null, empty string, or white space.");
                 if (innerCssClass == null)
                 {
                     innerCssClass = ConfigurationManager.AppSettings["MvcFlashMessages/InnerCssClass"] ?? "flash-message";
@@ -37,6 +38,7 @@ namespace MvcFlashMessages
         {
             get
             {
+                Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()), "Return value cannot be null, empty string, or white space.");
                 if (outerCssClass == null)
                 {
                     outerCssClass = ConfigurationManager.AppSettings["MvcFlashMessages/OuterCssClass"] ?? "flash-messages";

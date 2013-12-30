@@ -23,6 +23,7 @@ namespace MvcFlashMessages
         {
             get
             {
+                Contract.Ensures(Contract.Result<int>() >= 0);
                 EnsureFlashMessagesIsInitialized();
                 return flashMessages.Count;
             }
@@ -33,11 +34,22 @@ namespace MvcFlashMessages
             get { return key; }
         }
 
+        /// <summary>
+        /// Adds a new flash message to the flash message collection with the given key.
+        /// </summary>
+        /// <param name="key">Flash key.</param>
+        /// <param name="message">Flash message.</param>
         public void Add(string key, string message)
         {
+            Contract.Requires<ArgumentNullException>(key != null);
+            Contract.Requires<ArgumentNullException>(message != null);
             Add(new FlashMessage(key, message));
         }
 
+        /// <summary>
+        /// Add a new flash message to the flash message collection.
+        /// </summary>
+        /// <param name="flashMessage">Flash message.</param>
         public void Add(FlashMessage flashMessage)
         {
             Contract.Requires<ArgumentNullException>(flashMessage != null);
@@ -91,7 +103,7 @@ namespace MvcFlashMessages
                 return;
 
             IEnumerable<FlashMessage> objectFromStorage = storage.GetFlashMessages();
-            Contract.Assert(objectFromStorage != null);
+            Contract.Assert(objectFromStorage != null, "Object from TempDataDictionary cannot be null.");
             flashMessages.AddRange(objectFromStorage);
         }
 
