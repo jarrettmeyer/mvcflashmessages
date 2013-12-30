@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using System.Diagnostics.Contracts;
 
 namespace MvcFlashMessages
 {
@@ -17,7 +18,7 @@ namespace MvcFlashMessages
                 if (innerCssClass == null)
                 {
                     innerCssClass = ConfigurationManager.AppSettings["MvcFlashMessages/InnerCssClass"] ?? "flash-message";
-                }
+                }                
                 return innerCssClass;
             }
             set { innerCssClass = value; }
@@ -25,7 +26,11 @@ namespace MvcFlashMessages
 
         public static Config Instance
         {
-            get { return instance; }
+            get
+            {
+                Contract.Ensures(Contract.Result<Config>() != null, "Instance is not null.");
+                return instance;
+            }
         }
 
         public string OuterCssClass

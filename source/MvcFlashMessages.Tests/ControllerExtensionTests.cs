@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using NUnit.Framework;
 
 namespace MvcFlashMessages
@@ -34,6 +35,13 @@ namespace MvcFlashMessages
             Assert.AreEqual(2, flashMessageCollection.Count);
             Assert.AreEqual("alert", flashMessageCollection[0].Key);
             Assert.AreEqual("alert", flashMessageCollection[1].Key);
+        }
+
+        [Test]
+        public void Controller_cannot_be_null()
+        {
+            Controller nullController = null;
+            Assert.Throws<ArgumentNullException>(() => nullController.Flash("test", "This is a test."));
         }
 
         [Test]

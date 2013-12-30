@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
 namespace MvcFlashMessages
 {
@@ -10,6 +11,10 @@ namespace MvcFlashMessages
 
         public FlashMessage(string key, string message)
         {
+            Contract.Requires<ArgumentNullException>(key != null, "Key cannot be null.");
+            Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key), "Key cannot be null, empty string, or white space.");
+            Contract.Requires<ArgumentNullException>(message != null, "Message cannot be null.");
+
             this.key = KeyUtil.GetKey(key);
             this.message = message;
         }

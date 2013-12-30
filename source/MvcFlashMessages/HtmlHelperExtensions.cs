@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System;
+using System.Diagnostics.Contracts;
+using System.Web;
 using System.Web.Mvc;
 
 namespace MvcFlashMessages
@@ -7,6 +9,8 @@ namespace MvcFlashMessages
     {
         public static IHtmlString RenderFlash(this HtmlHelper htmlHelper)
         {
+            Contract.Requires<ArgumentNullException>(htmlHelper != null);
+
             TagBuilder outerDiv = new TagBuilder("div");
             outerDiv.AddCssClass(Config.Instance.OuterCssClass);
 

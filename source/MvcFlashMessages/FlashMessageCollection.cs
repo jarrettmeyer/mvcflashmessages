@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -14,9 +15,7 @@ namespace MvcFlashMessages
 
         public FlashMessageCollection(TempDataDictionary storage)
         {
-            if (storage == null)
-                throw new ArgumentNullException("storage");
-
+            Contract.Requires<ArgumentNullException>(storage != null);
             this.storage = storage;
         }
 
@@ -34,8 +33,14 @@ namespace MvcFlashMessages
             get { return key; }
         }
 
+        public void Add(string key, string message)
+        {
+            Add(new FlashMessage(key, message));
+        }
+
         public void Add(FlashMessage flashMessage)
         {
+            Contract.Requires<ArgumentNullException>(flashMessage != null);
             EnsureFlashMessagesIsInitialized();
             flashMessages.Add(flashMessage);
             SaveFlashMessages();
@@ -63,6 +68,7 @@ namespace MvcFlashMessages
         {
             get
             {
+                Contract.Requires<ArgumentOutOfRangeException>(0 <= index && index < this.Count);
                 EnsureFlashMessagesIsInitialized();
                 return flashMessages[index];
             }
@@ -85,6 +91,7 @@ namespace MvcFlashMessages
                 return;
 
             IEnumerable<FlashMessage> objectFromStorage = storage.GetFlashMessages();
+            Contract.Assert(objectFromStorage != null);
             flashMessages.AddRange(objectFromStorage);
         }
 

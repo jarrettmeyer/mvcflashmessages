@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 using System.Globalization;
 using System.Text.RegularExpressions;
 
@@ -8,11 +9,7 @@ namespace MvcFlashMessages
     {
         public static string GetKey(string value)
         {
-            if (value == null)
-                throw new ArgumentNullException("value", "Value cannot be null.");
-
-            if (string.IsNullOrWhiteSpace(value))
-                throw new ArgumentException("Value cannot be null, empty, or white space.", "value");
+            Contract.Requires<ArgumentNullException>(value != null);
 
             Regex pattern = new Regex(@"[^\w\-_]");
 

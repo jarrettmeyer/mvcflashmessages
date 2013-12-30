@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Diagnostics;
+using System.Web.Mvc;
 using NUnit.Framework;
 
 namespace MvcFlashMessages
@@ -43,6 +45,14 @@ namespace MvcFlashMessages
             flashMessageCollection.Add(new FlashMessage("error", "Something broke!"));
             flash = htmlHelper.RenderFlash().ToHtmlString();
             Assert.AreEqual("<div class=\"flash-messages\"><div class=\"flash-message flash-message-error\">Something broke!</div></div>", flash);
+        }
+
+        [Test]
+        public void HtmlHelper_cannot_be_null()
+        {
+            htmlHelper = null;
+            var ex = Assert.Throws<ArgumentNullException>(() => htmlHelper.RenderFlash());
+            Debug.WriteLine(ex);
         }
     }
 }

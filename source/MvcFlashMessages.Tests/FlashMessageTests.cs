@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using NUnit.Framework;
@@ -31,6 +32,20 @@ namespace MvcFlashMessages
         }
 
         [Test]
+        public void Key_may_not_be_an_empty_string()
+        {
+            var ex = Assert.Throws<ArgumentException>(() => new FlashMessage("", "my test message"));
+            Debug.WriteLine(ex.Message);
+        }
+
+        [Test]
+        public void Key_may_not_be_null()
+        {
+            var ex = Assert.Throws<ArgumentNullException>(() => new FlashMessage(null, "my test message"));
+            Debug.WriteLine(ex.Message);
+        }
+
+        [Test]
         public void Message_has_expected_value()
         {
             flashMessage = new FlashMessage("my-key", "My message");
@@ -38,15 +53,9 @@ namespace MvcFlashMessages
         }
 
         [Test]
-        public void Throws_an_exception_when_key_is_null()
+        public void Message_may_not_be_null()
         {
-            Assert.Throws<ArgumentNullException>(() => new FlashMessage(null, "message"));
-        }
-
-        [Test]
-        public void Throws_an_exception_when_key_is_whitespace()
-        {
-            Assert.Throws<ArgumentException>(() => new FlashMessage("  ", "message"));
+            Assert.Throws<ArgumentNullException>(() => new FlashMessage("test", null));
         }
     }
 }
