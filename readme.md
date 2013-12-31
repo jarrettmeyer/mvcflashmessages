@@ -9,13 +9,16 @@ This project is built with the following tools.
 - Visual Studio 2013
 - MVC 3.0
 - NUnit 2.6
-- PSake
+- Code Contracts
+- psake
 
-To build the project, run the tests, or create a NuGet package, use [PSake](https://github.com/psake/psake). The following tasks have been defined in the project
+To build the project, run the tests, or create a NuGet package, use [psake](https://github.com/psake/psake). The following tasks have been defined in the project.
 
 - **Version** &mdash; Update version. Invoke with `Invoke-psake Version @{ "version" = "a.b.c" }`. This will update the version in both the `AssemblyInfo.cs` and the `MvcFlashMessages.nuspec` files.
 - **NUnit** &mdash; Compile a debug build and run the [NUnit](http://nunit.org) tests.
 - **CreatePackage** &mdash; Create a new NuGet package. The `MvcFlashMessages.*.nupkg` will be placed in the `nuget` folder.
+
+This project also makes use of [Code Contracts](http://visualstudiogallery.msdn.microsoft.com/1ec7db13-3363-46c9-851f-1ce455f66970). If you wish to compile the project, you will need to have the Visual Studio plugin.
 
 ## Usage
 
@@ -71,6 +74,7 @@ A few values can be set in your `web.config` file.
 
 ## Release Notes
 
+- 0.2.2 - Added code contracts.
 - 0.2.1 - Bugfix release. The `FlashMessage` class needs to be marked as serializable to work with State Server or SQL-backed sessions.
 - 0.2.0 - Added extension method to get flash messages out of TempData. This makes testing scenarios a bit easier. Also, the temp data key is now exposed as the static property `FlashMessageCollection.Key`.
 - 0.1.1 - Updated NuGet metadata.
