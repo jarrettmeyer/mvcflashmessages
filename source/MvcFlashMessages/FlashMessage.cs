@@ -4,7 +4,7 @@ using System.Diagnostics.Contracts;
 namespace MvcFlashMessages
 {
     [Serializable]
-    public class FlashMessage
+    public class FlashMessage : IEquatable<FlashMessage>
     {
         private readonly string key;
         private readonly string message;
@@ -27,6 +27,23 @@ namespace MvcFlashMessages
         public string Message
         {
             get { return message; }
+        }
+
+        public bool Equals(FlashMessage other)
+        {
+            if (other == null)
+                return false;
+
+            if (ReferenceEquals(this, other))
+                return true;
+
+            return Key.Equals(other.Key, StringComparison.InvariantCulture) &&
+                   Message.Equals(other.Message, StringComparison.InvariantCulture);
+        }
+
+        public override string ToString()
+        {
+            return this.Message;
         }
     }
 }

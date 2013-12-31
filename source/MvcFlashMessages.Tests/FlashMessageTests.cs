@@ -21,6 +21,14 @@ namespace MvcFlashMessages
         }
 
         [Test]
+        public void Equals_returns_true_when_key_and_message_match()
+        {
+            flashMessage = CreateFlashMessage();
+            var other = CreateFlashMessage();
+            Assert.IsTrue(flashMessage.Equals(other));
+        }
+
+        [Test]
         [TestCase("success", Result = "success")]
         [TestCase("my-key", Result = "my-key")]
         [TestCase("ERROR", Result = "error")]
@@ -56,6 +64,18 @@ namespace MvcFlashMessages
         public void Message_may_not_be_null()
         {
             Assert.Throws<ArgumentNullException>(() => new FlashMessage("test", null));
+        }
+
+        [Test]
+        public void ToString_returns_expected_value()
+        {
+            flashMessage = CreateFlashMessage();
+            Assert.AreEqual("Hello, World!", flashMessage.ToString());
+        }
+
+        private static FlashMessage CreateFlashMessage(string key = "test", string message = "Hello, World!")
+        {
+            return new FlashMessage(key, message);
         }
     }
 }
