@@ -25,11 +25,23 @@ namespace MvcFlashMessages
                 TagBuilder innerDiv = new TagBuilder("div");
                 innerDiv.AddCssClass(Config.Instance.InnerCssClass + "-" + flashMessage.Key); 
                 innerDiv.AddCssClass(Config.Instance.InnerCssClass);
-                innerDiv.InnerHtml = flashMessage.Message;
+                innerDiv.InnerHtml = "";
+                innerDiv.InnerHtml += AddCloseIcon();
+                innerDiv.InnerHtml += flashMessage.Message;
                 outerDiv.InnerHtml += innerDiv.ToString(TagRenderMode.Normal);
             }
 
             return MvcHtmlString.Create(outerDiv.ToString(TagRenderMode.Normal));
+        }
+
+        private static string AddCloseIcon()
+        {
+            if (Config.Instance.IsClosable)
+            {
+                return "<span class=\"close\" onclick=\"javascript:(function(el){var parent=el.parentNode;parent.parentNode.removeChild(parent);})(this);\">&times;</span>";
+            }
+
+            return "";
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Diagnostics.Contracts;
 
 namespace MvcFlashMessages
@@ -7,6 +8,7 @@ namespace MvcFlashMessages
     {
         private string innerCssClass;
         private readonly static Config instance = new Config();
+        private bool? isClosable;
         private string outerCssClass;
 
         private Config() { }
@@ -32,6 +34,19 @@ namespace MvcFlashMessages
                 Contract.Ensures(Contract.Result<Config>() != null, "Instance is not null.");
                 return instance;
             }
+        }
+
+        public bool IsClosable
+        {
+            get
+            {
+                if (isClosable == null)
+                {
+                    isClosable = Convert.ToBoolean(ConfigurationManager.AppSettings["MvcFlashMessages/IsClosable"] ?? "false");
+                }
+                return isClosable.Value;
+            }
+            set { isClosable = value; }
         }
 
         public string OuterCssClass

@@ -1,8 +1,11 @@
+*.ncrunchproject
+*.ncrunchsolution
 *.nupkg
 *.suo
 *.user
 
 bin/
 obj/
+source/_NCrunch_*/
 True/readme.html
 TestResult.xml

@@ -10,6 +10,7 @@ namespace MvcFlashMessages
         {
             // Reset the CSS classes so default values will be picked up.
             Config.Instance.InnerCssClass = null;
+            Config.Instance.IsClosable = false;
             Config.Instance.OuterCssClass = null;
         }
 
@@ -31,6 +32,19 @@ namespace MvcFlashMessages
         public void Instance_is_not_null()
         {
             Assert.IsNotNull(Config.Instance);
+        }
+
+        [Test]
+        public void IsClosable_can_be_set()
+        {
+            Config.Instance.IsClosable = true;
+            Assert.IsTrue(Config.Instance.IsClosable);
+        }
+
+        [Test]
+        public void IsClosable_has_expected_default_value()
+        {
+            Assert.IsFalse(Config.Instance.IsClosable);
         }
 
         [Test]
