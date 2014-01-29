@@ -23,6 +23,21 @@ namespace MvcFlashMessages
             flashMessageCollection = new FlashMessageCollection(viewContext.TempData);
         }
 
+        [TearDown]
+        public void After_each_test()
+        {
+            Config.Instance.IsClosable = false;
+        }
+
+        [Test]
+        public void Adds_javascript_click_event_when_closable()
+        {
+            Config.Instance.IsClosable = true;
+            flashMessageCollection.Add("test", "Hello, World!");
+            flash = htmlHelper.RenderFlash().ToHtmlString();
+            StringAssert.IsMatch("onclick=\"javascript:\\(function\\(.+\\){.+}\\)\\(this\\);\"", flash);
+        }
+
         [Test]
         public void Can_display_an_empty_div()
         {

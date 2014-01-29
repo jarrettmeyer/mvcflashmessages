@@ -7,6 +7,8 @@ namespace MvcFlashMessages
 {
     public static class HtmlHelperExtensions
     {
+        private readonly static string closeTag = string.Format("<span class=\"close\" onclick=\"javascript:{0}\">&times;</span>", Config.Instance.CloseClickEvent);
+
         /// <summary>
         /// Renders the HTML containing the flash messages.
         /// </summary>
@@ -26,7 +28,7 @@ namespace MvcFlashMessages
                 innerDiv.AddCssClass(Config.Instance.InnerCssClass + "-" + flashMessage.Key); 
                 innerDiv.AddCssClass(Config.Instance.InnerCssClass);
                 innerDiv.InnerHtml = "";
-                innerDiv.InnerHtml += AddCloseIcon();
+                innerDiv.InnerHtml += AddCloseTag();
                 innerDiv.InnerHtml += flashMessage.Message;
                 outerDiv.InnerHtml += innerDiv.ToString(TagRenderMode.Normal);
             }
@@ -34,14 +36,9 @@ namespace MvcFlashMessages
             return MvcHtmlString.Create(outerDiv.ToString(TagRenderMode.Normal));
         }
 
-        private static string AddCloseIcon()
+        private static string AddCloseTag()
         {
-            if (Config.Instance.IsClosable)
-            {
-                return "<span class=\"close\" onclick=\"javascript:(function(el){var parent=el.parentNode;parent.parentNode.removeChild(parent);})(this);\">&times;</span>";
-            }
-
-            return "";
+            return Config.Instance.IsClosable ? closeTag : "";
         }
     }
 }

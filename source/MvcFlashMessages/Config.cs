@@ -6,12 +6,27 @@ namespace MvcFlashMessages
 {
     public class Config
     {
+        private string closeClickEvent;
         private string innerCssClass;
         private readonly static Config instance = new Config();
         private bool? isClosable;
         private string outerCssClass;
 
         private Config() { }
+
+        public string CloseClickEvent
+        {
+            get
+            {
+                Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()), "Return value cannot be null, empty string, or white space.");
+                if (closeClickEvent == null)
+                {
+                    closeClickEvent = ConfigurationManager.AppSettings["MvcFlashMessages/CloseClickEvent"] ?? "(function(el){var parent=el.parentNode;parent.parentNode.removeChild(parent);})(this);";
+                }
+                return closeClickEvent;
+            }
+            set { closeClickEvent = value; }
+        }
 
         public string InnerCssClass
         {

@@ -9,9 +9,18 @@ namespace MvcFlashMessages
         public void After_each_test()
         {
             // Reset the CSS classes so default values will be picked up.
+            Config.Instance.CloseClickEvent = null;
             Config.Instance.InnerCssClass = null;
             Config.Instance.IsClosable = false;
             Config.Instance.OuterCssClass = null;
+        }
+
+        [Test]
+        public void CloseClickEvent_can_be_set()
+        {
+            const string value = "alert(\"Hello, World!\");";
+            Config.Instance.CloseClickEvent = value;
+            Assert.AreEqual(value, Config.Instance.CloseClickEvent);
         }
 
         [Test]
