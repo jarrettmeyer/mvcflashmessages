@@ -31,9 +31,9 @@ To use flash messages in your project, first add the NuGet package. From your co
         return View();
     }
 
-To display flash messages, add the following to your view.
+To display flash messages, add the following to your view. *Tip: add to your [layout](https://github.com/jarrettmeyer/mvcflashmessages/blob/master/source/Sample/Views/Shared/_Layout.cshtml) for consistency.*
 
-    @Html.Flash();
+    @Html.RenderFlash();
 
 This HTML helper method would add the following to your view.
 
