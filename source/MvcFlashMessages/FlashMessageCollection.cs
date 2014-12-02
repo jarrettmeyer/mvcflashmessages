@@ -9,14 +9,14 @@ namespace MvcFlashMessages
 {
     public class FlashMessageCollection : IEnumerable<FlashMessage>
     {
-        private readonly List<FlashMessage> flashMessages = new List<FlashMessage>();        
-        private readonly TempDataDictionary storage;
-        private static readonly string key = typeof(FlashMessageCollection).FullName;
+        private readonly List<FlashMessage> _flashMessages = new List<FlashMessage>();        
+        private readonly TempDataDictionary _storage;
+        private static readonly string _key = typeof(FlashMessageCollection).FullName;
 
         public FlashMessageCollection(TempDataDictionary storage)
         {
             Contract.Requires<ArgumentNullException>(storage != null);
-            this.storage = storage;
+            _storage = storage;
         }
 
         public int Count
@@ -25,13 +25,13 @@ namespace MvcFlashMessages
             {
                 Contract.Ensures(Contract.Result<int>() >= 0);
                 EnsureFlashMessagesIsInitialized();
-                return flashMessages.Count;
+                return _flashMessages.Count;
             }
         }
 
         public static string Key
         {
-            get { return key; }
+            get { return _key; }
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace MvcFlashMessages
         {
             Contract.Requires<ArgumentNullException>(flashMessage != null);
             EnsureFlashMessagesIsInitialized();
-            flashMessages.Add(flashMessage);
+            _flashMessages.Add(flashMessage);
             SaveFlashMessages();
         }
 
@@ -63,11 +63,11 @@ namespace MvcFlashMessages
             try
             {
                 EnsureFlashMessagesIsInitialized();
-                return flashMessages.GetEnumerator();
+                return _flashMessages.GetEnumerator();
             }
             finally
             {
-                storage.Remove(key);
+                _storage.Remove(_key);
             }
         }
 
@@ -80,9 +80,9 @@ namespace MvcFlashMessages
         {
             get
             {
-                Contract.Requires<ArgumentOutOfRangeException>(0 <= index && index < this.Count);
+                Contract.Requires<ArgumentOutOfRangeException>(0 <= index && index < Count);
                 EnsureFlashMessagesIsInitialized();
-                return flashMessages[index];
+                return _flashMessages[index];
             }
         }
 
@@ -91,7 +91,7 @@ namespace MvcFlashMessages
             get
             {
                 EnsureFlashMessagesIsInitialized();
-                return flashMessages.Where(t => t.Key == key);                
+                return _flashMessages.Where(t => t.Key == key);                
             }
         }
 
@@ -99,18 +99,18 @@ namespace MvcFlashMessages
         {
             // If there are any flash messages already in the collection, do not do this
             // step again, or you will risk populating the collection twice.
-            if (flashMessages.Any())
+            if (_flashMessages.Any())
                 return;
 
-            IEnumerable<FlashMessage> objectFromStorage = storage.GetFlashMessages();
+            IEnumerable<FlashMessage> objectFromStorage = _storage.GetFlashMessages();
             Contract.Assert(objectFromStorage != null, "Object from TempDataDictionary cannot be null.");
-            flashMessages.AddRange(objectFromStorage);
+            _flashMessages.AddRange(objectFromStorage);
         }
 
         private void SaveFlashMessages()
         {
-            storage[key] = flashMessages;
-            storage.Keep(key);
+            _storage[_key] = _flashMessages;
+            _storage.Keep(_key);
         }
     }
 }

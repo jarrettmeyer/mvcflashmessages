@@ -6,8 +6,8 @@ namespace MvcFlashMessages
     [Serializable]
     public class FlashMessage : IEquatable<FlashMessage>
     {
-        private readonly string key;
-        private readonly string message;
+        private readonly string _key;
+        private readonly string _message;
 
         public FlashMessage(string key, string message)
         {
@@ -15,18 +15,18 @@ namespace MvcFlashMessages
             Contract.Requires<ArgumentException>(!string.IsNullOrWhiteSpace(key), "Key cannot be null, empty string, or white space.");
             Contract.Requires<ArgumentNullException>(message != null, "Message cannot be null.");
 
-            this.key = KeyUtil.GetKey(key);
-            this.message = message;
+            _key = KeyUtil.GetKey(key);
+            _message = message;
         }
 
         public string Key
         {
-            get { return key; }
+            get { return _key; }
         }
 
         public string Message
         {
-            get { return message; }
+            get { return _message; }
         }
 
         public bool Equals(FlashMessage other)
@@ -43,7 +43,7 @@ namespace MvcFlashMessages
 
         public override string ToString()
         {
-            return this.Message;
+            return Message;
         }
     }
 }

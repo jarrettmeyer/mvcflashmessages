@@ -6,11 +6,11 @@ namespace MvcFlashMessages
 {
     public class Config
     {
-        private string closeClickEvent;
-        private string innerCssClass;
-        private readonly static Config instance = new Config();
-        private bool? isClosable;
-        private string outerCssClass;
+        private string _closeClickEvent;
+        private string _innerCssClass;
+        private readonly static Config _instance = new Config();
+        private bool? _isClosable;
+        private string _outerCssClass;
 
         private Config() { }
 
@@ -19,13 +19,13 @@ namespace MvcFlashMessages
             get
             {
                 Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()), "Return value cannot be null, empty string, or white space.");
-                if (closeClickEvent == null)
+                if (_closeClickEvent == null)
                 {
-                    closeClickEvent = ConfigurationManager.AppSettings["MvcFlashMessages/CloseClickEvent"] ?? "(function(el){var parent=el.parentNode;parent.parentNode.removeChild(parent);})(this);";
+                    _closeClickEvent = ConfigurationManager.AppSettings["MvcFlashMessages/CloseClickEvent"] ?? "(function(el){var parent=el.parentNode;parent.parentNode.removeChild(parent);})(this);";
                 }
-                return closeClickEvent;
+                return _closeClickEvent;
             }
-            set { closeClickEvent = value; }
+            set { _closeClickEvent = value; }
         }
 
         public string InnerCssClass
@@ -33,13 +33,13 @@ namespace MvcFlashMessages
             get
             {
                 Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()), "Return value cannot be null, empty string, or white space.");
-                if (innerCssClass == null)
+                if (_innerCssClass == null)
                 {
-                    innerCssClass = ConfigurationManager.AppSettings["MvcFlashMessages/InnerCssClass"] ?? "flash-message";
+                    _innerCssClass = ConfigurationManager.AppSettings["MvcFlashMessages/InnerCssClass"] ?? "flash-message";
                 }                
-                return innerCssClass;
+                return _innerCssClass;
             }
-            set { innerCssClass = value; }
+            set { _innerCssClass = value; }
         }
 
         public static Config Instance
@@ -47,7 +47,7 @@ namespace MvcFlashMessages
             get
             {
                 Contract.Ensures(Contract.Result<Config>() != null, "Instance is not null.");
-                return instance;
+                return _instance;
             }
         }
 
@@ -55,13 +55,13 @@ namespace MvcFlashMessages
         {
             get
             {
-                if (isClosable == null)
+                if (_isClosable == null)
                 {
-                    isClosable = Convert.ToBoolean(ConfigurationManager.AppSettings["MvcFlashMessages/IsClosable"] ?? "false");
+                    _isClosable = Convert.ToBoolean(ConfigurationManager.AppSettings["MvcFlashMessages/IsClosable"] ?? "false");
                 }
-                return isClosable.Value;
+                return _isClosable.Value;
             }
-            set { isClosable = value; }
+            set { _isClosable = value; }
         }
 
         public string OuterCssClass
@@ -69,13 +69,13 @@ namespace MvcFlashMessages
             get
             {
                 Contract.Ensures(!string.IsNullOrWhiteSpace(Contract.Result<string>()), "Return value cannot be null, empty string, or white space.");
-                if (outerCssClass == null)
+                if (_outerCssClass == null)
                 {
-                    outerCssClass = ConfigurationManager.AppSettings["MvcFlashMessages/OuterCssClass"] ?? "flash-messages";
+                    _outerCssClass = ConfigurationManager.AppSettings["MvcFlashMessages/OuterCssClass"] ?? "flash-messages";
                 }
-                return outerCssClass;
+                return _outerCssClass;
             }
-            set { outerCssClass = value; }
+            set { _outerCssClass = value; }
         }
     }
 }

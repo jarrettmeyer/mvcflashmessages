@@ -24,6 +24,12 @@ namespace MvcFlashMessages
         }
 
         [Test]
+        public void CloseClickEvent_has_expected_default_value()
+        {
+            Assert.AreEqual("(function(el){var parent=el.parentNode;parent.parentNode.removeChild(parent);})(this);", Config.Instance.CloseClickEvent);
+        }
+
+        [Test]
         public void InnerCssClass_can_be_set()
         {
             Config.Instance.InnerCssClass = "Inner-test-value";
