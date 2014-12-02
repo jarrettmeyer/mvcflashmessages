@@ -71,6 +71,7 @@ A few values can be set in your `web.config` file.
 |---------|---------------|-------------|
 | MvcFlashMessages/InnerCssClass | flash-message | Inner container CSS class. |
 | MvcFlashMessages/OuterCssClass | flash-messages | Outer container CSS class. |
+| MvcFlashMessages/IsClosable | false | Is the message closable? If set to true, adds a clickable &times; to the flash message. |
 
 ## Release Notes
 
