@@ -49,5 +49,17 @@ namespace MvcFlashMessages
         {
             Assert.AreEqual(0, flashMessageCollection.Count);
         }
+
+        [Test]
+        public void It_throws_an_exception_if_the_key_is_an_empty_string()
+        {
+            Assert.Throws<ArgumentException>(() => controller.Flash("", "Boom!"));
+        }
+
+        [Test]
+        public void It_throws_an_exception_if_the_key_is_null()
+        {
+            Assert.Throws<ArgumentNullException>(() => controller.Flash(null, "Boom!"));
+        }
     }
 }
