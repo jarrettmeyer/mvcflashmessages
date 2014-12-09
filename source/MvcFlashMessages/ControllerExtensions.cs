@@ -18,6 +18,7 @@ namespace MvcFlashMessages
             Contract.Requires<NullReferenceException>(controller.TempData != null);
             Contract.Requires<ArgumentNullException>(key != null);
             Contract.Requires<ArgumentNullException>(message != null);
+            Contract.Requires<ArgumentException>(!string.IsNullOrEmpty(key));
             FlashMessageCollection flashMessageCollection = new FlashMessageCollection(controller.TempData);
             FlashMessage flashMessage = new FlashMessage(key, message);
             flashMessageCollection.Add(flashMessage);
