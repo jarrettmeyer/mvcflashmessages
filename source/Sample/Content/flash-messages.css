@@ -8,16 +8,6 @@
     border-color: #999;
 }
 
-.flash-message .close {
-    float: right;
-    font-size: 1.3em;
-}
-
-.flash-message .close:hover {
-    cursor: pointer;
-    text-decoration: none;
-}
-
 .flash-messages .flash-message-success {
     color: #3c763d;
     background-color: #dff0d8;
